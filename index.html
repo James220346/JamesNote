@@ -59,6 +59,7 @@
 </head>
 <body class="pb-10 relative">
 
+    <!-- ================= Header ================= -->
     <div class="sticky top-0 z-40 bg-white/50 backdrop-blur-xl shadow-sm px-4 py-4 rounded-b-[2rem] mb-6 border-b border-white/80">
         <div class="max-w-md mx-auto flex justify-between items-center">
             <div>
@@ -73,6 +74,7 @@
 
     <div class="max-w-md mx-auto px-4 space-y-6">
 
+        <!-- ================= โซนยอดรางวัลค้างเก่า ================= -->
         <div class="glass-card rounded-3xl overflow-hidden border-2 border-rose-200 shadow-rose-200/50">
             <div class="p-5 border-b border-white/50 bg-rose-50/50">
                 <h2 class="font-bold text-rose-600 text-lg flex items-center gap-2">⏳ ยอดรางวัลค้างเก่า</h2>
@@ -92,6 +94,7 @@
             </div>
         </div>
 
+        <!-- ================= 1. โซนมาลัย ================= -->
         <div class="glass-card rounded-3xl overflow-hidden">
             <div class="p-5 border-b border-white/50 bg-white/40">
                 <h2 class="font-bold text-violet-800 text-lg flex items-center gap-2 mb-4">🌸 สะสมพวงมาลัย (พวงละ 20.-)</h2>
@@ -123,6 +126,7 @@
             </div>
         </div>
 
+        <!-- ================= 2. โซนเงินรางวัล ================= -->
         <div class="glass-card rounded-3xl overflow-hidden">
             <div class="p-5 border-b border-white/50 bg-white/40">
                 <h2 class="font-bold text-emerald-800 text-lg mb-4">💵 สะสมเงินรางวัล</h2>
@@ -157,6 +161,7 @@
             </div>
         </div>
 
+        <!-- ================= 3. โซนประวัติและโหลดรูป ================= -->
         <div class="pt-2">
             <button type="button" onclick="downloadHistoryImage()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-4 flex items-center justify-center gap-3 shadow-lg active:scale-95 mb-4 border-b-4 border-indigo-800">
                 <span class="text-2xl">⬇️</span><span class="font-bold text-lg tracking-wide">โหลดรูปบิลส่งให้แม่ยกดู</span>
@@ -166,19 +171,25 @@
                 <div class="bg-slate-800 rounded-[1.5rem] p-5 shadow-lg mb-4 text-white">
                     <h2 class="text-base font-bold text-white mb-4 flex items-center gap-2"><span class="text-xl">📊</span> <span id="monthTitle">สรุปยอดเดือน: </span></h2>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <div class="flex-1 bg-slate-700/50 p-3 rounded-xl flex justify-between items-center border border-slate-600/50">
-                            <div>
-                                <div class="text-violet-300 font-bold text-sm">🌸 ค่ามาลัย (<span id="monthGarlandCount">0</span> พวง)</div>
-                                <div class="text-[10px] text-rose-400 font-bold mt-1 bg-rose-950/50 px-2 py-0.5 rounded inline-block">ค้าง ฿<span id="monthGarlandPending">0</span></div>
+                        <div class="flex-1 bg-slate-700/50 p-3 rounded-xl border border-slate-600/50">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="text-violet-300 font-bold text-sm">🌸 ค่ามาลัย (<span id="monthGarlandCount">0</span>)</div>
+                                <div class="font-black text-lg text-violet-400">฿<span id="monthGarlandTotal">0</span></div>
                             </div>
-                            <div class="font-black text-lg text-violet-400">฿<span id="monthGarlandTotal">0</span></div>
+                            <div class="flex justify-between items-center mt-1">
+                                <div class="text-[10px] text-emerald-400 font-bold">โอน: ฿<span id="monthGarlandReceived">0</span></div>
+                                <div class="text-[10px] text-rose-400 font-bold bg-rose-950/50 px-2 py-0.5 rounded">ค้าง: ฿<span id="monthGarlandPending">0</span></div>
+                            </div>
                         </div>
-                        <div class="flex-1 bg-slate-700/50 p-3 rounded-xl flex justify-between items-center border border-slate-600/50">
-                            <div>
+                        <div class="flex-1 bg-slate-700/50 p-3 rounded-xl border border-slate-600/50">
+                            <div class="flex justify-between items-start mb-2">
                                 <div class="text-emerald-300 font-bold text-sm">💵 เงินรางวัล</div>
-                                <div class="text-[10px] text-rose-400 font-bold mt-1 bg-rose-950/50 px-2 py-0.5 rounded inline-block">ค้าง ฿<span id="monthCashPending">0</span></div>
+                                <div class="font-black text-lg text-emerald-400">฿<span id="monthCashTotal">0</span></div>
                             </div>
-                            <div class="font-black text-lg text-emerald-400">฿<span id="monthCashTotal">0</span></div>
+                            <div class="flex justify-between items-center mt-1">
+                                <div class="text-[10px] text-emerald-400 font-bold">โอน: ฿<span id="monthCashReceived">0</span></div>
+                                <div class="text-[10px] text-rose-400 font-bold bg-rose-950/50 px-2 py-0.5 rounded">ค้าง: ฿<span id="monthCashPending">0</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -187,13 +198,15 @@
             </div>
         </div>
         
+        <!-- เวอร์ชันและการรีเซ็ต -->
         <div class="mt-8 text-center">
-            <div class="text-sm font-bold text-slate-500 mb-2">Version 3.0 (แก้บั๊กปุ่มค้าง)</div>
+            <div class="text-sm font-bold text-slate-500 mb-2">Version 3.1 (Safe Update)</div>
             <button type="button" onclick="factoryReset()" class="bg-rose-100 hover:bg-rose-200 text-rose-600 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm">⚠️ กดที่นี่เพื่อล้างข้อมูลทั้งหมด (กรณีแอปรวน)</button>
         </div>
 
     </div>
 
+    <!-- ================= 4. ปฏิทิน ================= -->
     <div id="calendarModal" class="fixed inset-0 z-50 hidden">
         <div id="calendarBg" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300" onclick="closeCalendar()"></div>
         <div id="calendarSheet" class="absolute bottom-0 left-0 right-0 bg-white rounded-t-[2rem] shadow-2xl p-6 transform translate-y-full transition-transform duration-300 max-h-[90vh] overflow-y-auto">
@@ -209,6 +222,7 @@
         </div>
     </div>
 
+    <!-- ================= 5. ป็อปอัปยืนยันการลบ ================= -->
     <div id="deleteModal" class="fixed inset-0 z-[60] hidden flex justify-center items-center px-4">
         <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="closeDeleteModal()"></div>
         <div class="bg-white/95 backdrop-blur-xl w-full max-w-sm rounded-[2rem] p-6 shadow-2xl relative z-10 border border-white text-center">
@@ -222,8 +236,14 @@
         </div>
     </div>
 
+    <!-- ================= 6. สคริปต์ ================= -->
     <script>
-        // ระบบซ่อมข้อมูล (Auto-Repair Data)
+        // ฟังก์ชันอัปเดตตัวหนังสือแบบปลอดภัย (Safe Set) ป้องกันแอปพัง 100%
+        function safeSetText(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.innerText = text;
+        }
+
         let ledger = {};
         let oldPendingTotal = 0;
         
@@ -257,7 +277,7 @@
                 loadDateData();
                 updateOldPendingUI(); 
             } catch(e) {
-                alert("การโหลดข้อมูลมีปัญหา กรุณากดปุ่มล้างข้อมูลด้านล่างสุด");
+                alert("เกิดข้อผิดพลาด กรุณากดปุ่มล้างข้อมูลด้านล่างสุด");
             }
         };
 
@@ -276,30 +296,34 @@
         }
 
         function updateOldPendingUI() {
-            document.getElementById('oldPendingDisplay').innerText = oldPendingTotal.toLocaleString();
+            safeSetText('oldPendingDisplay', oldPendingTotal.toLocaleString());
             localStorage.setItem('jamesOldPending', oldPendingTotal.toString());
         }
 
         function addOldPending() {
             try {
-                const amt = parseInt(document.getElementById('setOldPendingInput').value) || 0;
+                const inputEl = document.getElementById('setOldPendingInput');
+                if(!inputEl) return;
+                const amt = parseInt(inputEl.value) || 0;
                 if(amt > 0) {
                     oldPendingTotal += amt;
-                    document.getElementById('setOldPendingInput').value = '';
+                    inputEl.value = '';
                     updateOldPendingUI();
                 }
-            } catch(e) { alert(e); }
+            } catch(e) { console.error(e); }
         }
 
         function deductOldPending() {
             try {
-                const amt = parseInt(document.getElementById('receiveOldPendingInput').value) || 0;
+                const inputEl = document.getElementById('receiveOldPendingInput');
+                if(!inputEl) return;
+                const amt = parseInt(inputEl.value) || 0;
                 if(amt > 0) {
                     oldPendingTotal = Math.max(0, oldPendingTotal - amt); 
-                    document.getElementById('receiveOldPendingInput').value = '';
+                    inputEl.value = '';
                     updateOldPendingUI();
                 }
-            } catch(e) { alert(e); }
+            } catch(e) { console.error(e); }
         }
 
         function ensureValidDateData(dateStr) {
@@ -321,15 +345,15 @@
             const gPending = gTotal - data.garlandReceived;
             const cPending = data.cash - data.cashReceived;
 
-            document.getElementById('dailyGarlands').innerText = data.garlands;
-            document.getElementById('garlandTotalMoney').innerText = gTotal.toLocaleString();
-            document.getElementById('garlandReceived').innerText = data.garlandReceived.toLocaleString();
-            document.getElementById('garlandPending').innerText = gPending.toLocaleString();
+            safeSetText('dailyGarlands', data.garlands);
+            safeSetText('garlandTotalMoney', gTotal.toLocaleString());
+            safeSetText('garlandReceived', data.garlandReceived.toLocaleString());
+            safeSetText('garlandPending', gPending.toLocaleString());
 
-            document.getElementById('dailyCash').innerText = data.cash.toLocaleString();
-            document.getElementById('cashTotalMoney').innerText = data.cash.toLocaleString();
-            document.getElementById('cashReceived').innerText = data.cashReceived.toLocaleString();
-            document.getElementById('cashPending').innerText = cPending.toLocaleString();
+            safeSetText('dailyCash', data.cash.toLocaleString());
+            safeSetText('cashTotalMoney', data.cash.toLocaleString());
+            safeSetText('cashReceived', data.cashReceived.toLocaleString());
+            safeSetText('cashPending', cPending.toLocaleString());
             
             updateDashboard();
         }
@@ -341,16 +365,18 @@
                 ledger[dateStr].garlands = Math.max(0, ledger[dateStr].garlands + amount);
                 saveDataToDevice();
                 loadDateData(); 
-            } catch(e) { alert(e); }
+            } catch(e) { console.error(e); }
         }
 
         function addReceivedGarland() {
             const dateStr = getDateString(globalSelectedDate);
-            const amount = parseInt(document.getElementById('receiveGarlandInput').value) || 0;
+            const inputEl = document.getElementById('receiveGarlandInput');
+            if(!inputEl) return;
+            const amount = parseInt(inputEl.value) || 0;
             if (amount > 0) { 
                 ensureValidDateData(dateStr);
                 ledger[dateStr].garlandReceived += amount; 
-                document.getElementById('receiveGarlandInput').value = ''; 
+                inputEl.value = ''; 
                 saveDataToDevice();
                 loadDateData(); 
             }
@@ -363,24 +389,28 @@
                 ledger[dateStr].cash += amount;
                 saveDataToDevice();
                 loadDateData();
-            } catch(e) { alert(e); }
+            } catch(e) { console.error(e); }
         }
 
         function addCustomCash() {
-            const amount = parseInt(document.getElementById('addCashInput').value) || 0;
+            const inputEl = document.getElementById('addCashInput');
+            if(!inputEl) return;
+            const amount = parseInt(inputEl.value) || 0;
             if (amount > 0) { 
                 addCash(amount); 
-                document.getElementById('addCashInput').value = ''; 
+                inputEl.value = ''; 
             }
         }
 
         function addReceivedCash() {
             const dateStr = getDateString(globalSelectedDate);
-            const amount = parseInt(document.getElementById('receiveCashInput').value) || 0;
+            const inputEl = document.getElementById('receiveCashInput');
+            if(!inputEl) return;
+            const amount = parseInt(inputEl.value) || 0;
             if (amount > 0) { 
                 ensureValidDateData(dateStr);
                 ledger[dateStr].cashReceived += amount; 
-                document.getElementById('receiveCashInput').value = ''; 
+                inputEl.value = ''; 
                 saveDataToDevice();
                 loadDateData(); 
             }
@@ -390,6 +420,8 @@
             const modal = document.getElementById('calendarModal');
             const bg = document.getElementById('calendarBg');
             const sheet = document.getElementById('calendarSheet');
+            if(!modal || !bg || !sheet) return;
+            
             calendarViewDate = new Date(globalSelectedDate);
             renderCalendar();
             modal.classList.remove('hidden');
@@ -402,10 +434,13 @@
         function closeCalendar() {
             const bg = document.getElementById('calendarBg');
             const sheet = document.getElementById('calendarSheet');
+            const modal = document.getElementById('calendarModal');
+            if(!modal || !bg || !sheet) return;
+
             bg.classList.add('opacity-0');
             sheet.classList.add('translate-y-full');
             setTimeout(() => {
-                document.getElementById('calendarModal').classList.add('hidden');
+                modal.classList.add('hidden');
             }, 300);
         }
 
@@ -417,10 +452,13 @@
         function renderCalendar() {
             const year = calendarViewDate.getFullYear();
             const month = calendarViewDate.getMonth();
-            document.getElementById('calendarMonthYear').innerText = `${monthNames[month]} ${year + 543}`;
+            safeSetText('calendarMonthYear', `${monthNames[month]} ${year + 543}`);
+            
             const firstDay = new Date(year, month, 1).getDay(); 
             const daysInMonth = new Date(year, month + 1, 0).getDate(); 
             const calendarDays = document.getElementById('calendarDays');
+            if(!calendarDays) return;
+
             calendarDays.innerHTML = '';
             for (let i = 0; i < firstDay; i++) { calendarDays.innerHTML += `<div></div>`; }
             for (let i = 1; i <= daysInMonth; i++) {
@@ -444,35 +482,41 @@
         function updateDisplayDate() {
             const d = globalSelectedDate;
             const shortYear = (d.getFullYear() + 543).toString().slice(-2);
-            document.getElementById('displayDateText').innerText = `${d.getDate()} ${shortMonths[d.getMonth()]} ${shortYear}`;
+            safeSetText('displayDateText', `${d.getDate()} ${shortMonths[d.getMonth()]} ${shortYear}`);
         }
 
         function deleteRecord(dateStr) {
             recordToDelete = dateStr;
             const dateObj = new Date(dateStr);
-            document.getElementById('deleteModalText').innerHTML = `ลบข้อมูลของวันที่<br><span class="font-bold text-rose-500 text-base">${formatThaiDateFull(dateObj)}</span><br>ใช่หรือไม่?`;
-            document.getElementById('deleteModal').classList.remove('hidden');
+            const modalText = document.getElementById('deleteModalText');
+            if(modalText) modalText.innerHTML = `ลบข้อมูลของวันที่<br><span class="font-bold text-rose-500 text-base">${formatThaiDateFull(dateObj)}</span><br>ใช่หรือไม่?`;
+            
+            const modal = document.getElementById('deleteModal');
+            if(modal) modal.classList.remove('hidden');
         }
 
         function closeDeleteModal() {
-            document.getElementById('deleteModal').classList.add('hidden');
+            const modal = document.getElementById('deleteModal');
+            if(modal) modal.classList.add('hidden');
             recordToDelete = null;
         }
 
         function confirmDelete() {
             if (recordToDelete) {
-                document.getElementById('deleteModal').classList.add('hidden');
+                const modal = document.getElementById('deleteModal');
+                if(modal) modal.classList.add('hidden');
+                
                 delete ledger[recordToDelete];
                 saveDataToDevice(); 
                 if (recordToDelete === getDateString(globalSelectedDate)) {
-                    document.getElementById('dailyGarlands').innerText = '0';
-                    document.getElementById('garlandTotalMoney').innerText = '0';
-                    document.getElementById('garlandReceived').innerText = '0';
-                    document.getElementById('garlandPending').innerText = '0';
-                    document.getElementById('dailyCash').innerText = '0';
-                    document.getElementById('cashTotalMoney').innerText = '0';
-                    document.getElementById('cashReceived').innerText = '0';
-                    document.getElementById('cashPending').innerText = '0';
+                    safeSetText('dailyGarlands', '0');
+                    safeSetText('garlandTotalMoney', '0');
+                    safeSetText('garlandReceived', '0');
+                    safeSetText('garlandPending', '0');
+                    safeSetText('dailyCash', '0');
+                    safeSetText('cashTotalMoney', '0');
+                    safeSetText('cashReceived', '0');
+                    safeSetText('cashPending', '0');
                 }
                 updateDashboard(); 
                 recordToDelete = null;
@@ -485,7 +529,7 @@
             
             let mGarlands = 0, mGarlandTotal = 0, mGarlandPending = 0, mCashTotal = 0, mCashReceived = 0, mCashPending = 0;
             const historyList = document.getElementById('historyList');
-            historyList.innerHTML = '';
+            if(historyList) historyList.innerHTML = '';
 
             const allDates = Object.keys(ledger).sort((a, b) => new Date(b) - new Date(a));
 
@@ -502,6 +546,8 @@
                 mGarlands += data.garlands; mGarlandTotal += gTotal; mGarlandPending += gPending;
                 mCashTotal += data.cash; mCashReceived += data.cashReceived; mCashPending += cPending;
 
+                if(!historyList) return;
+                
                 const hasPending = gPending > 0 || cPending > 0;
                 const card = document.createElement('div');
                 card.className = "bg-white/80 rounded-[1.5rem] p-5 shadow-sm border border-white relative overflow-hidden text-slate-800 backdrop-blur-md";
@@ -520,14 +566,18 @@
                 historyList.appendChild(card);
             });
 
-            if(historyList.innerHTML === '') historyList.innerHTML = `<div class="text-center text-slate-500 font-medium py-6 text-sm">ยังไม่มีรายการบันทึกของเดือนนี้</div>`;
-            document.getElementById('monthTitle').innerText = `สรุปยอดเดือน: ${fullMonths[parseInt(month) - 1]} ${parseInt(year) + 543}`;
-            document.getElementById('monthGarlandCount').innerText = mGarlands.toLocaleString();
-            document.getElementById('monthGarlandTotal').innerText = mGarlandTotal.toLocaleString();
-            document.getElementById('monthGarlandPending').innerText = mGarlandPending.toLocaleString();
-            document.getElementById('monthCashTotal').innerText = mCashTotal.toLocaleString();
-            document.getElementById('monthCashReceived').innerText = mCashReceived.toLocaleString();
-            document.getElementById('monthCashPending').innerText = mCashPending.toLocaleString();
+            if(historyList && historyList.innerHTML === '') {
+                historyList.innerHTML = `<div class="text-center text-slate-500 font-medium py-6 text-sm">ยังไม่มีรายการบันทึกของเดือนนี้</div>`;
+            }
+
+            safeSetText('monthTitle', `สรุปยอดเดือน: ${fullMonths[parseInt(month) - 1]} ${parseInt(year) + 543}`);
+            safeSetText('monthGarlandCount', mGarlands.toLocaleString());
+            safeSetText('monthGarlandTotal', mGarlandTotal.toLocaleString());
+            safeSetText('monthGarlandReceived', (mGarlandTotal - mGarlandPending).toLocaleString());
+            safeSetText('monthGarlandPending', mGarlandPending.toLocaleString());
+            safeSetText('monthCashTotal', mCashTotal.toLocaleString());
+            safeSetText('monthCashReceived', mCashReceived.toLocaleString());
+            safeSetText('monthCashPending', mCashPending.toLocaleString());
         }
 
         function formatThaiDateFull(d) {
@@ -539,6 +589,8 @@
             deleteBtns.forEach(btn => btn.style.display = 'none');
             const container = document.getElementById('historyDownloadArea');
             const historyList = document.getElementById('historyList');
+            if(!container || !historyList) return;
+            
             const originalBg = container.style.background, originalWidth = container.style.width, originalListClass = historyList.className, originalBorder = container.style.border;
 
             container.style.background = 'linear-gradient(135deg, #e0e7ff 0%, #fae8ff 100%)'; 
