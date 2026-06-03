@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>สมุดบันทึกเจมส์</title>
+    <title>สมุดบันทึกมาลัยเจมส์</title>
     
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
@@ -57,9 +57,8 @@
         }
     </style>
 </head>
-<body class="pb-28 relative">
+<body class="pb-10 relative">
 
-    <!-- ================= Header ================= -->
     <div class="sticky top-0 z-40 bg-white/50 backdrop-blur-xl shadow-sm px-4 py-4 rounded-b-[2rem] mb-6 border-b border-white/80">
         <div class="max-w-md mx-auto flex justify-between items-center">
             <div>
@@ -67,120 +66,105 @@
                 <div class="text-slate-500 text-xs font-bold mt-0.5">⭐ ศิลปิน: เจมส์</div>
             </div>
             <button type="button" onclick="openCalendar()" class="bg-white/80 hover:bg-white text-slate-700 px-4 py-2.5 rounded-full border border-slate-200/50 text-sm font-bold flex items-center gap-1.5 shadow-sm active:scale-95 transition-all">
-                📅 <span id="displayDateText">โหลด...</span>
+                📅 <span id="displayDateText">โหลดวัน...</span>
             </button>
         </div>
     </div>
 
     <div class="max-w-md mx-auto px-4 space-y-6">
 
-        <!-- ================= โซนพิเศษ: ยอดรางวัลค้างเก่า ================= -->
         <div class="glass-card rounded-3xl overflow-hidden border-2 border-rose-200 shadow-rose-200/50">
             <div class="p-5 border-b border-white/50 bg-rose-50/50">
                 <h2 class="font-bold text-rose-600 text-lg flex items-center gap-2">⏳ ยอดรางวัลค้างเก่า</h2>
-                <p class="text-[10px] text-rose-400 font-bold leading-tight mt-1">(ยอดค้างสะสมจากหลายเดือนก่อน)</p>
                 <div class="text-center my-6">
-                    <div class="text-xs text-rose-400 font-bold uppercase tracking-wider mb-1">ยอดที่ยังรอโอน</div>
                     <div class="text-5xl font-black text-gradient-rose drop-shadow-sm leading-tight">฿<span id="oldPendingDisplay">0</span></div>
                 </div>
             </div>
             <div class="p-5 bg-white/30 space-y-3">
                 <div class="flex gap-2">
-                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="setOldPendingInput" placeholder="เพิ่มยอดสะสมตั้งต้น..." class="w-full h-11 px-4 rounded-xl font-bold bg-white/80 border border-white focus:border-rose-400 text-slate-700 outline-none transition-all shadow-inner text-sm">
-                    <button type="button" onclick="addOldPending()" class="h-11 px-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold text-sm active:scale-95 transition-transform shadow-sm whitespace-nowrap">เพิ่มยอด</button>
+                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="setOldPendingInput" placeholder="ใส่ยอดสะสมเพิ่ม..." class="w-full h-11 px-4 rounded-xl font-bold bg-white/80 border border-white focus:border-rose-400 text-slate-700 outline-none text-sm">
+                    <button type="button" onclick="addOldPending()" class="h-11 px-4 bg-slate-700 text-white rounded-xl font-bold text-sm active:scale-95 whitespace-nowrap">เพิ่มยอด</button>
                 </div>
                 <div class="flex gap-2">
-                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="receiveOldPendingInput" placeholder="ทยอยโอนมาเท่าไหร่?..." class="w-full h-11 px-4 rounded-xl font-bold bg-white/80 border border-white focus:border-emerald-400 text-emerald-700 outline-none transition-all shadow-inner text-sm">
-                    <button type="button" onclick="deductOldPending()" class="h-11 px-5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm active:scale-95 transition-transform shadow-sm whitespace-nowrap">หักยอดโอน</button>
+                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="receiveOldPendingInput" placeholder="ทยอยโอนมา..." class="w-full h-11 px-4 rounded-xl font-bold bg-white/80 border border-white focus:border-emerald-400 text-emerald-700 outline-none text-sm">
+                    <button type="button" onclick="deductOldPending()" class="h-11 px-5 bg-emerald-600 text-white rounded-xl font-bold text-sm active:scale-95 whitespace-nowrap">หักยอดโอน</button>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 1. ฝั่งพวงมาลัย ================= -->
         <div class="glass-card rounded-3xl overflow-hidden">
             <div class="p-5 border-b border-white/50 bg-white/40">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="font-bold text-violet-800 text-lg flex items-center gap-2">🌸 สะสมพวงมาลัย</h2>
-                    <div class="text-[10px] sm:text-xs font-bold text-violet-700 bg-violet-100/80 px-2.5 py-1 rounded-full border border-violet-200">พวงละ 20.-</div>
-                </div>
+                <h2 class="font-bold text-violet-800 text-lg flex items-center gap-2 mb-4">🌸 สะสมพวงมาลัย (พวงละ 20.-)</h2>
                 <div class="text-center my-6">
                     <div class="text-7xl font-black text-gradient-purple drop-shadow-sm leading-tight" id="dailyGarlands">0</div>
-                    <div class="text-violet-500 font-bold text-sm uppercase tracking-widest mt-1">พวง</div>
                 </div>
                 <div class="grid grid-cols-4 gap-2">
-                    <button type="button" onclick="addGarland(-1)" class="h-14 bg-white/80 text-rose-500 font-black rounded-2xl shadow-sm border border-slate-100 text-xl active:scale-95 transition-transform hover:bg-white">-1</button>
-                    <button type="button" onclick="addGarland(1)" class="h-14 bg-violet-600 text-white font-black rounded-2xl shadow-md text-xl active:scale-95 transition-transform">+1</button>
-                    <button type="button" onclick="addGarland(5)" class="h-14 bg-fuchsia-500 text-white font-black rounded-2xl shadow-md text-xl active:scale-95 transition-transform">+5</button>
-                    <button type="button" onclick="addGarland(10)" class="h-14 bg-pink-500 text-white font-black rounded-2xl shadow-md text-xl active:scale-95 transition-transform">+10</button>
+                    <button type="button" onclick="addGarland(-1)" class="h-14 bg-white/80 text-rose-500 font-black rounded-2xl active:scale-95 text-xl">-1</button>
+                    <button type="button" onclick="addGarland(1)" class="h-14 bg-violet-600 text-white font-black rounded-2xl shadow-md active:scale-95 text-xl">+1</button>
+                    <button type="button" onclick="addGarland(5)" class="h-14 bg-fuchsia-500 text-white font-black rounded-2xl shadow-md active:scale-95 text-xl">+5</button>
+                    <button type="button" onclick="addGarland(10)" class="h-14 bg-pink-500 text-white font-black rounded-2xl shadow-md active:scale-95 text-xl">+10</button>
                 </div>
             </div>
             <div class="p-5 bg-white/20">
-                <div class="flex justify-between items-end mb-4 flex-wrap gap-2">
-                    <div class="min-w-0">
-                        <div class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">ยอดเงินรวม</div>
+                <div class="flex justify-between items-end mb-4">
+                    <div>
+                        <div class="text-xs text-slate-500 font-bold">รวมมาลัย</div>
                         <div class="font-black text-2xl text-gradient-purple">฿<span id="garlandTotalMoney">0</span></div>
                     </div>
-                    <div class="text-right whitespace-nowrap">
+                    <div class="text-right">
                         <div class="text-xs text-emerald-600 font-bold mb-1.5">โอนแล้ว: ฿<span id="garlandReceived">0</span></div>
-                        <div class="text-sm font-black bg-rose-100 text-rose-600 px-3 py-1.5 rounded-xl border border-rose-200 inline-block">ค้าง: ฿<span id="garlandPending">0</span></div>
+                        <div class="text-sm font-black bg-rose-100 text-rose-600 px-3 py-1.5 rounded-xl border border-rose-200">ค้าง: ฿<span id="garlandPending">0</span></div>
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="receiveGarlandInput" placeholder="กรอกยอดโอน..." class="w-full h-12 px-4 rounded-xl font-bold bg-white/80 border border-white focus:border-violet-400 text-violet-900 outline-none transition-all shadow-inner">
-                    <button type="button" onclick="addReceivedGarland()" class="h-12 px-5 sm:px-6 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold active:scale-95 transition-transform shadow-sm whitespace-nowrap">หักยอด</button>
+                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="receiveGarlandInput" placeholder="โอนค่ามาลัย..." class="w-full h-12 px-4 rounded-xl font-bold bg-white/80 border border-white text-violet-900 outline-none">
+                    <button type="button" onclick="addReceivedGarland()" class="h-12 px-5 bg-slate-800 text-white rounded-xl font-bold active:scale-95">หักยอด</button>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 2. ฝั่งเงินรางวัล ================= -->
         <div class="glass-card rounded-3xl overflow-hidden">
             <div class="p-5 border-b border-white/50 bg-white/40">
-                <h2 class="font-bold text-emerald-800 text-lg flex items-center gap-2 mb-2">💵 สะสมเงินรางวัล</h2>
+                <h2 class="font-bold text-emerald-800 text-lg mb-4">💵 สะสมเงินรางวัล</h2>
                 <div class="text-center my-6">
-                    <div class="text-6xl sm:text-7xl font-black text-gradient-emerald drop-shadow-sm leading-tight" id="dailyCash">0</div>
-                    <div class="text-emerald-500 font-bold text-sm uppercase tracking-widest mt-1">บาท</div>
+                    <div class="text-6xl font-black text-gradient-emerald drop-shadow-sm leading-tight" id="dailyCash">0</div>
                 </div>
                 <div class="grid grid-cols-3 gap-2 mb-3">
-                    <button type="button" onclick="addCash(100)" class="h-14 bg-white/80 text-emerald-600 font-black rounded-2xl border border-slate-100 active:scale-95 transition-transform text-lg">+100</button>
-                    <button type="button" onclick="addCash(500)" class="h-14 bg-emerald-500 text-white font-black rounded-2xl active:scale-95 transition-transform shadow-md text-lg">+500</button>
-                    <button type="button" onclick="addCash(1000)" class="h-14 bg-teal-500 text-white font-black rounded-2xl active:scale-95 transition-transform shadow-md text-lg">+1,000</button>
+                    <button type="button" onclick="addCash(100)" class="h-14 bg-white/80 text-emerald-600 font-black rounded-2xl border border-slate-100 active:scale-95 text-lg">+100</button>
+                    <button type="button" onclick="addCash(500)" class="h-14 bg-emerald-500 text-white font-black rounded-2xl active:scale-95 shadow-md text-lg">+500</button>
+                    <button type="button" onclick="addCash(1000)" class="h-14 bg-teal-500 text-white font-black rounded-2xl active:scale-95 shadow-md text-lg">+1,000</button>
                 </div>
                 <div class="flex gap-2">
-                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="addCashInput" placeholder="ยอดอื่นๆ..." class="w-full h-12 px-4 rounded-xl text-center font-bold bg-white/80 border border-white focus:border-emerald-400 text-emerald-900 outline-none transition-all shadow-inner">
-                    <button type="button" onclick="addCustomCash()" class="h-12 px-6 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold active:scale-95 transition-transform shadow-sm whitespace-nowrap">บวกเพิ่ม</button>
+                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="addCashInput" placeholder="ยอดอื่นๆ..." class="w-full h-12 px-4 rounded-xl text-center font-bold bg-white/80 border border-white text-emerald-900 outline-none">
+                    <button type="button" onclick="addCustomCash()" class="h-12 px-6 bg-emerald-600 text-white rounded-xl font-bold active:scale-95 whitespace-nowrap">บวกเพิ่ม</button>
                 </div>
             </div>
             <div class="p-5 bg-white/20">
-                <div class="flex justify-between items-end mb-4 flex-wrap gap-2">
-                    <div class="min-w-0">
-                        <div class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">ยอดเงินรวม</div>
+                <div class="flex justify-between items-end mb-4">
+                    <div>
+                        <div class="text-xs text-slate-500 font-bold">รวมเงินรางวัล</div>
                         <div class="font-black text-2xl text-gradient-emerald">฿<span id="cashTotalMoney">0</span></div>
                     </div>
-                    <div class="text-right whitespace-nowrap">
+                    <div class="text-right">
                         <div class="text-xs text-emerald-600 font-bold mb-1.5">โอนแล้ว: ฿<span id="cashReceived">0</span></div>
-                        <div class="text-sm font-black bg-rose-100 text-rose-600 px-3 py-1.5 rounded-xl border border-rose-200 inline-block">ค้าง: ฿<span id="cashPending">0</span></div>
+                        <div class="text-sm font-black bg-rose-100 text-rose-600 px-3 py-1.5 rounded-xl border border-rose-200">ค้าง: ฿<span id="cashPending">0</span></div>
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="receiveCashInput" placeholder="กรอกยอดโอน..." class="w-full h-12 px-4 rounded-xl font-bold bg-white/80 border border-white focus:border-emerald-400 text-emerald-900 outline-none transition-all shadow-inner">
-                    <button type="button" onclick="addReceivedCash()" class="h-12 px-5 sm:px-6 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold active:scale-95 transition-transform shadow-sm whitespace-nowrap">หักยอด</button>
+                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="receiveCashInput" placeholder="โอนเงินรางวัล..." class="w-full h-12 px-4 rounded-xl font-bold bg-white/80 border border-white text-emerald-900 outline-none">
+                    <button type="button" onclick="addReceivedCash()" class="h-12 px-5 bg-emerald-600 text-white rounded-xl font-bold active:scale-95">หักยอด</button>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 3. โซนดาวน์โหลดรูปภาพ ================= -->
         <div class="pt-2">
-            <button type="button" onclick="downloadHistoryImage()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-4 flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all mb-4 border-b-4 border-indigo-800">
-                <span class="text-2xl">⬇️</span>
-                <span class="font-bold text-lg tracking-wide">โหลดรูปบิลส่งให้แม่ยกดู</span>
+            <button type="button" onclick="downloadHistoryImage()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-4 flex items-center justify-center gap-3 shadow-lg active:scale-95 mb-4 border-b-4 border-indigo-800">
+                <span class="text-2xl">⬇️</span><span class="font-bold text-lg tracking-wide">โหลดรูปบิลส่งให้แม่ยกดู</span>
             </button>
-            <p class="text-center text-xs text-slate-500 font-medium mb-6">(ระบบจะจัดหน้าคู่ให้อัตโนมัติ ถ้ายอดหลายวันเพื่อไม่ให้รูปยาว)</p>
 
-            <div id="historyDownloadArea" class="glass-card rounded-[2rem] p-3 transition-all duration-300">
+            <div id="historyDownloadArea" class="glass-card rounded-[2rem] p-3">
                 <div class="bg-slate-800 rounded-[1.5rem] p-5 shadow-lg mb-4 text-white">
-                    <h2 class="text-base font-bold text-white mb-4 flex items-center gap-2">
-                        <span class="text-xl">📊</span> <span id="monthTitle">สรุปยอดเดือน: </span>
-                    </h2>
+                    <h2 class="text-base font-bold text-white mb-4 flex items-center gap-2"><span class="text-xl">📊</span> <span id="monthTitle">สรุปยอดเดือน: </span></h2>
                     <div class="flex flex-col sm:flex-row gap-3">
                         <div class="flex-1 bg-slate-700/50 p-3 rounded-xl flex justify-between items-center border border-slate-600/50">
                             <div>
@@ -198,59 +182,39 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="flex justify-between items-end mb-4 px-2">
-                    <h2 class="font-extrabold text-slate-800 text-lg flex items-center gap-2">
-                        <span>📝</span> รายละเอียดรายวัน
-                    </h2>
-                </div>
-                
+                <div class="flex justify-between items-end mb-4 px-2"><h2 class="font-extrabold text-slate-800 text-lg flex items-center gap-2"><span>📝</span> รายละเอียดรายวัน</h2></div>
                 <div id="historyList" class="space-y-4"></div>
             </div>
         </div>
+        
+        <div class="mt-8 text-center">
+            <div class="text-sm font-bold text-slate-500 mb-2">Version 3.0 (แก้บั๊กปุ่มค้าง)</div>
+            <button type="button" onclick="factoryReset()" class="bg-rose-100 hover:bg-rose-200 text-rose-600 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm">⚠️ กดที่นี่เพื่อล้างข้อมูลทั้งหมด (กรณีแอปรวน)</button>
+        </div>
 
     </div>
 
-    <!-- ================= 4. ปฏิทินแบบแก้ไขระบบแอนิเมชันให้เสถียร 100% ================= -->
     <div id="calendarModal" class="fixed inset-0 z-50 hidden">
-        <!-- พื้นหลังสีดำเบลอ -->
         <div id="calendarBg" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300" onclick="closeCalendar()"></div>
-        
-        <!-- ตัวแผ่นปฏิทิน -->
         <div id="calendarSheet" class="absolute bottom-0 left-0 right-0 bg-white rounded-t-[2rem] shadow-2xl p-6 transform translate-y-full transition-transform duration-300 max-h-[90vh] overflow-y-auto">
             <div class="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-6"></div>
-            
             <div class="flex justify-between items-center mb-6">
-                <button type="button" onclick="changeMonth(-1)" class="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
+                <button type="button" onclick="changeMonth(-1)" class="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg></button>
                 <h3 id="calendarMonthYear" class="text-lg font-black text-violet-800"></h3>
-                <button type="button" onclick="changeMonth(1)" class="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
-                </button>
+                <button type="button" onclick="changeMonth(1)" class="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></button>
             </div>
-
-            <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-400 mb-3">
-                <div class="text-rose-500">อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div class="text-violet-500">ส</div>
-            </div>
-
+            <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-400 mb-3"><div class="text-rose-500">อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div class="text-violet-500">ส</div></div>
             <div id="calendarDays" class="grid grid-cols-7 gap-y-2 gap-x-1 text-center text-sm font-bold"></div>
-            
-            <button type="button" onclick="closeCalendar()" class="w-full mt-8 h-14 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl active:scale-95 transition-transform text-lg shadow-md">
-                ตกลง / ปิด
-            </button>
+            <button type="button" onclick="closeCalendar()" class="w-full mt-8 h-14 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl active:scale-95 text-lg shadow-md">ตกลง / ปิดหน้าต่าง</button>
         </div>
     </div>
 
-    <!-- ================= 5. ป็อปอัปยืนยันการลบ ================= -->
     <div id="deleteModal" class="fixed inset-0 z-[60] hidden flex justify-center items-center px-4">
         <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="closeDeleteModal()"></div>
-        
         <div class="bg-white/95 backdrop-blur-xl w-full max-w-sm rounded-[2rem] p-6 shadow-2xl relative z-10 border border-white text-center">
             <div class="w-16 h-16 bg-rose-100 text-rose-500 rounded-full flex justify-center items-center mx-auto mb-4 text-3xl shadow-inner">🗑️</div>
             <h3 class="text-xl font-black text-slate-800 mb-2">ยืนยันการลบข้อมูล</h3>
             <p class="text-slate-500 text-sm mb-6" id="deleteModalText">คุณต้องการลบข้อมูลของวันที่ ... ใช่หรือไม่?</p>
-            
             <div class="flex gap-3">
                 <button type="button" onclick="closeDeleteModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3 rounded-xl transition-all active:scale-95">ยกเลิก</button>
                 <button type="button" onclick="confirmDelete()" class="flex-1 bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 rounded-xl shadow-lg shadow-rose-200 transition-all active:scale-95">ลบข้อมูล</button>
@@ -258,25 +222,26 @@
         </div>
     </div>
 
-    <!-- ================= 6. ส่วนของ JavaScript ================= -->
     <script>
-        // ระบบป้องกัน (Fail-Safe): ดึงข้อมูลจากเครื่อง ถ้าพังให้สร้างใหม่ทันที
+        // ระบบซ่อมข้อมูล (Auto-Repair Data)
         let ledger = {};
         let oldPendingTotal = 0;
         
         try {
-            ledger = JSON.parse(localStorage.getItem('jamesPersonalLedger')) || {};
-        } catch (e) {
-            ledger = {}; // ป้องกันกรณีข้อมูลพัง
-        }
+            const storedLedger = localStorage.getItem('jamesPersonalLedger');
+            if(storedLedger) {
+                ledger = JSON.parse(storedLedger);
+                if (typeof ledger !== 'object' || Array.isArray(ledger) || ledger === null) {
+                    ledger = {};
+                }
+            }
+        } catch (e) { ledger = {}; }
 
         try {
-            let storedVal = localStorage.getItem('jamesOldPending');
-            oldPendingTotal = storedVal ? parseInt(storedVal) : 0;
+            const storedOldPending = localStorage.getItem('jamesOldPending');
+            oldPendingTotal = storedOldPending ? parseInt(storedOldPending) : 0;
             if (isNaN(oldPendingTotal)) oldPendingTotal = 0;
-        } catch (e) {
-            oldPendingTotal = 0;
-        }
+        } catch (e) { oldPendingTotal = 0; }
         
         let globalSelectedDate = new Date(); 
         let calendarViewDate = new Date(); 
@@ -287,52 +252,147 @@
         const fullMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
         window.onload = () => {
-            updateDisplayDate();
-            loadDateData();
-            updateOldPendingUI(); 
+            try {
+                updateDisplayDate();
+                loadDateData();
+                updateOldPendingUI(); 
+            } catch(e) {
+                alert("การโหลดข้อมูลมีปัญหา กรุณากดปุ่มล้างข้อมูลด้านล่างสุด");
+            }
         };
 
         function saveDataToDevice() {
             localStorage.setItem('jamesPersonalLedger', JSON.stringify(ledger));
         }
 
-        // --- ระบบยอดค้างเก่า ---
+        // ปุ่มล้างข้อมูลฉุกเฉิน
+        function factoryReset() {
+            if(confirm("คำเตือน: นี่คือการล้างข้อมูล 'ทั้งหมด' เพื่อแก้ปัญหาแอปค้าง\n\nต้องการล้างข้อมูลใช่หรือไม่?")) {
+                localStorage.removeItem('jamesPersonalLedger');
+                localStorage.removeItem('jamesOldPending');
+                alert("ล้างข้อมูลเรียบร้อยแล้ว แอปจะโหลดใหม่");
+                location.reload();
+            }
+        }
+
         function updateOldPendingUI() {
             document.getElementById('oldPendingDisplay').innerText = oldPendingTotal.toLocaleString();
             localStorage.setItem('jamesOldPending', oldPendingTotal.toString());
         }
 
         function addOldPending() {
-            const amt = parseInt(document.getElementById('setOldPendingInput').value) || 0;
-            if(amt > 0) {
-                oldPendingTotal += amt;
-                document.getElementById('setOldPendingInput').value = '';
-                updateOldPendingUI();
-            }
+            try {
+                const amt = parseInt(document.getElementById('setOldPendingInput').value) || 0;
+                if(amt > 0) {
+                    oldPendingTotal += amt;
+                    document.getElementById('setOldPendingInput').value = '';
+                    updateOldPendingUI();
+                }
+            } catch(e) { alert(e); }
         }
 
         function deductOldPending() {
-            const amt = parseInt(document.getElementById('receiveOldPendingInput').value) || 0;
-            if(amt > 0) {
-                oldPendingTotal = Math.max(0, oldPendingTotal - amt); 
-                document.getElementById('receiveOldPendingInput').value = '';
-                updateOldPendingUI();
+            try {
+                const amt = parseInt(document.getElementById('receiveOldPendingInput').value) || 0;
+                if(amt > 0) {
+                    oldPendingTotal = Math.max(0, oldPendingTotal - amt); 
+                    document.getElementById('receiveOldPendingInput').value = '';
+                    updateOldPendingUI();
+                }
+            } catch(e) { alert(e); }
+        }
+
+        function ensureValidDateData(dateStr) {
+            if (!ledger[dateStr] || typeof ledger[dateStr] !== 'object') {
+                ledger[dateStr] = { garlands: 0, garlandReceived: 0, cash: 0, cashReceived: 0 };
+            }
+            let g = parseInt(ledger[dateStr].garlands); ledger[dateStr].garlands = isNaN(g) ? 0 : g;
+            let gr = parseInt(ledger[dateStr].garlandReceived); ledger[dateStr].garlandReceived = isNaN(gr) ? 0 : gr;
+            let c = parseInt(ledger[dateStr].cash); ledger[dateStr].cash = isNaN(c) ? 0 : c;
+            let cr = parseInt(ledger[dateStr].cashReceived); ledger[dateStr].cashReceived = isNaN(cr) ? 0 : cr;
+        }
+
+        function loadDateData() {
+            const dateStr = getDateString(globalSelectedDate);
+            ensureValidDateData(dateStr); 
+            
+            const data = ledger[dateStr];
+            const gTotal = data.garlands * 20;
+            const gPending = gTotal - data.garlandReceived;
+            const cPending = data.cash - data.cashReceived;
+
+            document.getElementById('dailyGarlands').innerText = data.garlands;
+            document.getElementById('garlandTotalMoney').innerText = gTotal.toLocaleString();
+            document.getElementById('garlandReceived').innerText = data.garlandReceived.toLocaleString();
+            document.getElementById('garlandPending').innerText = gPending.toLocaleString();
+
+            document.getElementById('dailyCash').innerText = data.cash.toLocaleString();
+            document.getElementById('cashTotalMoney').innerText = data.cash.toLocaleString();
+            document.getElementById('cashReceived').innerText = data.cashReceived.toLocaleString();
+            document.getElementById('cashPending').innerText = cPending.toLocaleString();
+            
+            updateDashboard();
+        }
+
+        function addGarland(amount) {
+            try {
+                const dateStr = getDateString(globalSelectedDate);
+                ensureValidDateData(dateStr);
+                ledger[dateStr].garlands = Math.max(0, ledger[dateStr].garlands + amount);
+                saveDataToDevice();
+                loadDateData(); 
+            } catch(e) { alert(e); }
+        }
+
+        function addReceivedGarland() {
+            const dateStr = getDateString(globalSelectedDate);
+            const amount = parseInt(document.getElementById('receiveGarlandInput').value) || 0;
+            if (amount > 0) { 
+                ensureValidDateData(dateStr);
+                ledger[dateStr].garlandReceived += amount; 
+                document.getElementById('receiveGarlandInput').value = ''; 
+                saveDataToDevice();
+                loadDateData(); 
             }
         }
 
-        // --- ปฏิทินโฉมใหม่ (แก้บั๊ก 100%) ---
+        function addCash(amount) {
+            try {
+                const dateStr = getDateString(globalSelectedDate);
+                ensureValidDateData(dateStr);
+                ledger[dateStr].cash += amount;
+                saveDataToDevice();
+                loadDateData();
+            } catch(e) { alert(e); }
+        }
+
+        function addCustomCash() {
+            const amount = parseInt(document.getElementById('addCashInput').value) || 0;
+            if (amount > 0) { 
+                addCash(amount); 
+                document.getElementById('addCashInput').value = ''; 
+            }
+        }
+
+        function addReceivedCash() {
+            const dateStr = getDateString(globalSelectedDate);
+            const amount = parseInt(document.getElementById('receiveCashInput').value) || 0;
+            if (amount > 0) { 
+                ensureValidDateData(dateStr);
+                ledger[dateStr].cashReceived += amount; 
+                document.getElementById('receiveCashInput').value = ''; 
+                saveDataToDevice();
+                loadDateData(); 
+            }
+        }
+
         function openCalendar() {
             const modal = document.getElementById('calendarModal');
             const bg = document.getElementById('calendarBg');
             const sheet = document.getElementById('calendarSheet');
-            
             calendarViewDate = new Date(globalSelectedDate);
             renderCalendar();
-            
-            // เปิดให้แสดงผลก่อน
             modal.classList.remove('hidden');
-            
-            // สั่งเล่นแอนิเมชัน
             setTimeout(() => {
                 bg.classList.remove('opacity-0');
                 sheet.classList.remove('translate-y-full');
@@ -340,17 +400,12 @@
         }
 
         function closeCalendar() {
-            const modal = document.getElementById('calendarModal');
             const bg = document.getElementById('calendarBg');
             const sheet = document.getElementById('calendarSheet');
-            
-            // เล่นแอนิเมชันกลับ
             bg.classList.add('opacity-0');
             sheet.classList.add('translate-y-full');
-            
-            // รอจนภาพหายไปแล้วค่อยซ่อนกล่อง (300ms ให้ตรงกับ CSS duration)
             setTimeout(() => {
-                modal.classList.add('hidden');
+                document.getElementById('calendarModal').classList.add('hidden');
             }, 300);
         }
 
@@ -367,14 +422,10 @@
             const daysInMonth = new Date(year, month + 1, 0).getDate(); 
             const calendarDays = document.getElementById('calendarDays');
             calendarDays.innerHTML = '';
-            
             for (let i = 0; i < firstDay; i++) { calendarDays.innerHTML += `<div></div>`; }
-            
             for (let i = 1; i <= daysInMonth; i++) {
                 const isSelected = (i === globalSelectedDate.getDate() && month === globalSelectedDate.getMonth() && year === globalSelectedDate.getFullYear());
-                const cssClass = isSelected 
-                    ? 'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white shadow-md shadow-violet-200 transform scale-110' 
-                    : 'text-slate-700 hover:bg-slate-100 active:bg-slate-200';
+                const cssClass = isSelected ? 'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white shadow-md transform scale-110' : 'text-slate-700 hover:bg-slate-100';
                 calendarDays.innerHTML += `<div class="flex justify-center items-center py-1"><button type="button" onclick="selectDate(${year}, ${month}, ${i})" class="w-10 h-10 rounded-full flex items-center justify-center transition-all ${cssClass}">${i}</button></div>`;
             }
         }
@@ -396,77 +447,10 @@
             document.getElementById('displayDateText').innerText = `${d.getDate()} ${shortMonths[d.getMonth()]} ${shortYear}`;
         }
 
-        // --- โหลดและคำนวณข้อมูลรายวัน ---
-        function loadDateData() {
-            const dateStr = getDateString(globalSelectedDate);
-            if (!ledger[dateStr]) ledger[dateStr] = { garlands: 0, garlandReceived: 0, cash: 0, cashReceived: 0 };
-            
-            const data = ledger[dateStr];
-            const gTotal = data.garlands * 20;
-            const gPending = gTotal - data.garlandReceived;
-            const cPending = data.cash - data.cashReceived;
-
-            document.getElementById('dailyGarlands').innerText = data.garlands;
-            document.getElementById('garlandTotalMoney').innerText = gTotal.toLocaleString();
-            document.getElementById('garlandReceived').innerText = data.garlandReceived.toLocaleString();
-            document.getElementById('garlandPending').innerText = gPending.toLocaleString();
-
-            document.getElementById('dailyCash').innerText = data.cash.toLocaleString();
-            document.getElementById('cashTotalMoney').innerText = data.cash.toLocaleString();
-            document.getElementById('cashReceived').innerText = data.cashReceived.toLocaleString();
-            document.getElementById('cashPending').innerText = cPending.toLocaleString();
-            
-            updateDashboard();
-        }
-
-        // --- เพิ่มลดข้อมูล ---
-        function addGarland(amount) {
-            const dateStr = getDateString(globalSelectedDate);
-            ledger[dateStr].garlands = Math.max(0, ledger[dateStr].garlands + amount);
-            saveDataToDevice();
-            loadDateData(); 
-        }
-        function addReceivedGarland() {
-            const dateStr = getDateString(globalSelectedDate);
-            const amount = parseInt(document.getElementById('receiveGarlandInput').value) || 0;
-            if (amount > 0) { 
-                ledger[dateStr].garlandReceived += amount; 
-                document.getElementById('receiveGarlandInput').value = ''; 
-                saveDataToDevice();
-                loadDateData(); 
-            }
-        }
-        function addCash(amount) {
-            const dateStr = getDateString(globalSelectedDate);
-            ledger[dateStr].cash += amount;
-            saveDataToDevice();
-            loadDateData();
-        }
-        function addCustomCash() {
-            const amount = parseInt(document.getElementById('addCashInput').value) || 0;
-            if (amount > 0) { 
-                addCash(amount); 
-                document.getElementById('addCashInput').value = ''; 
-            }
-        }
-        function addReceivedCash() {
-            const dateStr = getDateString(globalSelectedDate);
-            const amount = parseInt(document.getElementById('receiveCashInput').value) || 0;
-            if (amount > 0) { 
-                ledger[dateStr].cashReceived += amount; 
-                document.getElementById('receiveCashInput').value = ''; 
-                saveDataToDevice();
-                loadDateData(); 
-            }
-        }
-
-        // --- การจัดการป็อปอัปแจ้งเตือนลบ ---
         function deleteRecord(dateStr) {
             recordToDelete = dateStr;
             const dateObj = new Date(dateStr);
-            const formattedDate = formatThaiDateFull(dateObj);
-            
-            document.getElementById('deleteModalText').innerHTML = `คุณต้องการลบข้อมูลของวันที่<br><span class="font-bold text-rose-500 text-base">${formattedDate}</span><br>ใช่หรือไม่?`;
+            document.getElementById('deleteModalText').innerHTML = `ลบข้อมูลของวันที่<br><span class="font-bold text-rose-500 text-base">${formatThaiDateFull(dateObj)}</span><br>ใช่หรือไม่?`;
             document.getElementById('deleteModal').classList.remove('hidden');
         }
 
@@ -477,9 +461,9 @@
 
         function confirmDelete() {
             if (recordToDelete) {
+                document.getElementById('deleteModal').classList.add('hidden');
                 delete ledger[recordToDelete];
                 saveDataToDevice(); 
-                
                 if (recordToDelete === getDateString(globalSelectedDate)) {
                     document.getElementById('dailyGarlands').innerText = '0';
                     document.getElementById('garlandTotalMoney').innerText = '0';
@@ -491,11 +475,10 @@
                     document.getElementById('cashPending').innerText = '0';
                 }
                 updateDashboard(); 
-                closeDeleteModal(); 
+                recordToDelete = null;
             }
         }
 
-        // --- วาดการ์ดประวัติ ---
         function updateDashboard() {
             const selectedDateStr = getDateString(globalSelectedDate); 
             const [year, month] = selectedDateStr.split('-'); 
@@ -508,7 +491,7 @@
 
             allDates.forEach(dateKey => {
                 if (!dateKey.startsWith(`${year}-${month}`)) return;
-
+                ensureValidDateData(dateKey); 
                 const data = ledger[dateKey];
                 const gTotal = data.garlands * 20;
                 const gPending = gTotal - data.garlandReceived;
@@ -520,56 +503,25 @@
                 mCashTotal += data.cash; mCashReceived += data.cashReceived; mCashPending += cPending;
 
                 const hasPending = gPending > 0 || cPending > 0;
-                
                 const card = document.createElement('div');
                 card.className = "bg-white/80 rounded-[1.5rem] p-5 shadow-sm border border-white relative overflow-hidden text-slate-800 backdrop-blur-md";
-                
                 const indicator = hasPending ? '<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-rose-500"></div>' : '<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-emerald-400"></div>';
 
-                let garlandHTML = `
-                    <div class="flex justify-between items-center text-sm mb-1">
-                        <span class="text-slate-600 font-bold">🌸 มาลัย (${data.garlands} พวง)</span>
-                        <span class="font-bold text-violet-700">฿${gTotal.toLocaleString()}</span>
-                    </div>
-                `;
-                if (data.garlandReceived > 0 || gPending > 0) {
-                    garlandHTML += `<div class="flex justify-between items-center text-xs pl-5 mb-1"><span class="text-slate-500">โอนแล้ว: ฿${data.garlandReceived.toLocaleString()}</span><span class="font-bold ${gPending > 0 ? 'text-rose-500' : 'text-emerald-500'}">ค้าง: ฿${gPending.toLocaleString()}</span></div>`;
-                }
+                let garlandHTML = `<div class="flex justify-between items-center text-sm mb-1"><span class="text-slate-600 font-bold">🌸 มาลัย (${data.garlands} พวง)</span><span class="font-bold text-violet-700">฿${gTotal.toLocaleString()}</span></div>`;
+                if (data.garlandReceived > 0 || gPending > 0) garlandHTML += `<div class="flex justify-between items-center text-xs pl-5 mb-1"><span class="text-slate-500">โอนแล้ว: ฿${data.garlandReceived.toLocaleString()}</span><span class="font-bold ${gPending > 0 ? 'text-rose-500' : 'text-emerald-500'}">ค้าง: ฿${gPending.toLocaleString()}</span></div>`;
                 
-                let cashHTML = `
-                    <div class="flex justify-between items-center text-sm mt-3 mb-1 pt-3 border-t border-slate-200">
-                        <span class="text-slate-600 font-bold">💵 รางวัลเงินสด</span>
-                        <span class="font-bold text-emerald-700">฿${data.cash.toLocaleString()}</span>
-                    </div>
-                `;
-                if (data.cashReceived > 0 || cPending > 0) {
-                    cashHTML += `<div class="flex justify-between items-center text-xs pl-5"><span class="text-slate-500">โอนแล้ว: ฿${data.cashReceived.toLocaleString()}</span><span class="font-bold ${cPending > 0 ? 'text-rose-500' : 'text-emerald-500'}">ค้าง: ฿${cPending.toLocaleString()}</span></div>`;
-                }
+                let cashHTML = `<div class="flex justify-between items-center text-sm mt-3 mb-1 pt-3 border-t border-slate-200"><span class="text-slate-600 font-bold">💵 รางวัลเงินสด</span><span class="font-bold text-emerald-700">฿${data.cash.toLocaleString()}</span></div>`;
+                if (data.cashReceived > 0 || cPending > 0) cashHTML += `<div class="flex justify-between items-center text-xs pl-5"><span class="text-slate-500">โอนแล้ว: ฿${data.cashReceived.toLocaleString()}</span><span class="font-bold ${cPending > 0 ? 'text-rose-500' : 'text-emerald-500'}">ค้าง: ฿${cPending.toLocaleString()}</span></div>`;
 
-                card.innerHTML = `
-                    ${indicator}
-                    <button type="button" onclick="deleteRecord('${dateKey}')" class="delete-btn absolute top-4 right-4 w-8 h-8 bg-slate-100 hover:bg-rose-100 text-slate-400 hover:text-rose-500 rounded-full flex justify-center items-center transition-colors border border-slate-200/50 shadow-sm active:scale-90">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                    </button>
-                    <div class="border-b border-dashed border-slate-300 pb-3 mb-3 pr-10">
-                        <span class="font-black text-slate-700 text-lg">📅 ${formatThaiDateFull(new Date(dateKey))}</span>
-                    </div>
-                    <div class="pl-2">
-                        ${data.garlands > 0 || data.garlandReceived > 0 ? garlandHTML : ''}
-                        ${data.cash > 0 || data.cashReceived > 0 ? cashHTML : ''}
-                    </div>
-                `;
+                card.innerHTML = `${indicator}
+                    <button type="button" onclick="deleteRecord('${dateKey}')" class="delete-btn absolute top-4 right-4 w-8 h-8 bg-slate-100 hover:bg-rose-100 text-slate-400 hover:text-rose-500 rounded-full flex justify-center items-center transition-colors shadow-sm"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                    <div class="border-b border-dashed border-slate-300 pb-3 mb-3 pr-10"><span class="font-black text-slate-700 text-lg">📅 ${formatThaiDateFull(new Date(dateKey))}</span></div>
+                    <div class="pl-2">${data.garlands > 0 || data.garlandReceived > 0 ? garlandHTML : ''}${data.cash > 0 || data.cashReceived > 0 ? cashHTML : ''}</div>`;
                 historyList.appendChild(card);
             });
 
-            if(historyList.innerHTML === '') {
-                historyList.innerHTML = `<div class="text-center text-slate-500 font-medium py-6 text-sm">ยังไม่มีรายการบันทึกของเดือนนี้</div>`;
-            }
-
-            const mIndex = parseInt(month) - 1;
-            const thaiYear = parseInt(year) + 543;
-            
-            document.getElementById('monthTitle').innerText = `สรุปยอดเดือน: ${fullMonths[mIndex]} ${thaiYear}`;
+            if(historyList.innerHTML === '') historyList.innerHTML = `<div class="text-center text-slate-500 font-medium py-6 text-sm">ยังไม่มีรายการบันทึกของเดือนนี้</div>`;
+            document.getElementById('monthTitle').innerText = `สรุปยอดเดือน: ${fullMonths[parseInt(month) - 1]} ${parseInt(year) + 543}`;
             document.getElementById('monthGarlandCount').innerText = mGarlands.toLocaleString();
             document.getElementById('monthGarlandTotal').innerText = mGarlandTotal.toLocaleString();
             document.getElementById('monthGarlandPending').innerText = mGarlandPending.toLocaleString();
@@ -582,48 +534,25 @@
             return `${d.getDate()} ${fullMonths[d.getMonth()]} ${d.getFullYear() + 543}`;
         }
         
-        // --- ดาวน์โหลดรูปภาพ ---
         function downloadHistoryImage() {
             const deleteBtns = document.querySelectorAll('.delete-btn');
             deleteBtns.forEach(btn => btn.style.display = 'none');
-
             const container = document.getElementById('historyDownloadArea');
             const historyList = document.getElementById('historyList');
-            
-            const originalBg = container.style.background;
-            const originalWidth = container.style.width;
-            const originalListClass = historyList.className;
-            const originalBorder = container.style.border;
+            const originalBg = container.style.background, originalWidth = container.style.width, originalListClass = historyList.className, originalBorder = container.style.border;
 
             container.style.background = 'linear-gradient(135deg, #e0e7ff 0%, #fae8ff 100%)'; 
-            container.style.padding = '24px';
-            container.style.border = 'none';
+            container.style.padding = '24px'; container.style.border = 'none';
 
-            if (historyList.children.length > 4) {
-                container.style.width = '800px'; 
-                historyList.className = 'grid grid-cols-2 gap-4';
-            } else {
-                container.style.width = '450px'; 
-                historyList.className = 'space-y-4';
-            }
+            if (historyList.children.length > 4) { container.style.width = '800px'; historyList.className = 'grid grid-cols-2 gap-4'; } 
+            else { container.style.width = '450px'; historyList.className = 'space-y-4'; }
 
             setTimeout(() => {
-                html2canvas(container, { 
-                    scale: 3, 
-                    useCORS: true, 
-                    backgroundColor: '#e0e7ff'
-                }).then(canvas => {
+                html2canvas(container, { scale: 3, useCORS: true, backgroundColor: '#e0e7ff' }).then(canvas => {
                     const link = document.createElement('a');
-                    link.download = `สรุปยอดเจมส์_${getDateString(new Date())}.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                    
+                    link.download = `สรุปยอดเจมส์_${getDateString(new Date())}.png`; link.href = canvas.toDataURL('image/png'); link.click();
                     deleteBtns.forEach(btn => btn.style.display = 'flex');
-                    container.style.width = originalWidth;
-                    container.style.background = originalBg;
-                    container.style.padding = '12px';
-                    container.style.border = originalBorder;
-                    historyList.className = originalListClass;
+                    container.style.width = originalWidth; container.style.background = originalBg; container.style.padding = '12px'; container.style.border = originalBorder; historyList.className = originalListClass;
                 });
             }, 300);
         }
