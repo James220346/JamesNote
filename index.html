@@ -59,7 +59,7 @@
 </head>
 <body class="pb-10 relative">
 
-    <!-- ================= Header ================= -->
+    <!-- Header -->
     <div class="sticky top-0 z-40 bg-white/50 backdrop-blur-xl shadow-sm px-4 py-4 rounded-b-[2rem] mb-6 border-b border-white/80">
         <div class="max-w-md mx-auto flex justify-between items-center">
             <div>
@@ -74,7 +74,7 @@
 
     <div class="max-w-md mx-auto px-4 space-y-6">
 
-        <!-- ================= โซนยอดรางวัลค้างเก่า ================= -->
+        <!-- โซนยอดรางวัลค้างเก่า -->
         <div class="glass-card rounded-3xl overflow-hidden border-2 border-rose-200 shadow-rose-200/50">
             <div class="p-5 border-b border-white/50 bg-rose-50/50">
                 <h2 class="font-bold text-rose-600 text-lg flex items-center gap-2">⏳ ยอดรางวัลค้างเก่า</h2>
@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        <!-- ================= 1. โซนมาลัย ================= -->
+        <!-- 1. โซนมาลัย -->
         <div class="glass-card rounded-3xl overflow-hidden">
             <div class="p-5 border-b border-white/50 bg-white/40">
                 <h2 class="font-bold text-violet-800 text-lg flex items-center gap-2 mb-4">🌸 สะสมพวงมาลัย (พวงละ 20.-)</h2>
@@ -126,7 +126,7 @@
             </div>
         </div>
 
-        <!-- ================= 2. โซนเงินรางวัล ================= -->
+        <!-- 2. โซนเงินรางวัล -->
         <div class="glass-card rounded-3xl overflow-hidden">
             <div class="p-5 border-b border-white/50 bg-white/40">
                 <h2 class="font-bold text-emerald-800 text-lg mb-4">💵 สะสมเงินรางวัล</h2>
@@ -161,7 +161,7 @@
             </div>
         </div>
 
-        <!-- ================= 3. โซนประวัติและโหลดรูป ================= -->
+        <!-- 3. โซนประวัติและโหลดรูป -->
         <div class="pt-2">
             <button type="button" onclick="downloadHistoryImage()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-4 flex items-center justify-center gap-3 shadow-lg active:scale-95 mb-4 border-b-4 border-indigo-800">
                 <span class="text-2xl">⬇️</span><span class="font-bold text-lg tracking-wide">โหลดรูปบิลส่งให้แม่ยกดู</span>
@@ -198,15 +198,14 @@
             </div>
         </div>
         
-        <!-- เวอร์ชันและการรีเซ็ต -->
-        <div class="mt-8 text-center">
-            <div class="text-sm font-bold text-slate-500 mb-2">Version 3.1 (Safe Update)</div>
-            <button type="button" onclick="factoryReset()" class="bg-rose-100 hover:bg-rose-200 text-rose-600 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm">⚠️ กดที่นี่เพื่อล้างข้อมูลทั้งหมด (กรณีแอปรวน)</button>
+        <!-- ข้อมูลเวอร์ชัน -->
+        <div class="mt-8 text-center mb-4">
+            <div class="text-xs font-bold text-slate-400">Version 4.0 (Auto-Rescue Mode)</div>
         </div>
 
     </div>
 
-    <!-- ================= 4. ปฏิทิน ================= -->
+    <!-- 4. ปฏิทิน -->
     <div id="calendarModal" class="fixed inset-0 z-50 hidden">
         <div id="calendarBg" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300" onclick="closeCalendar()"></div>
         <div id="calendarSheet" class="absolute bottom-0 left-0 right-0 bg-white rounded-t-[2rem] shadow-2xl p-6 transform translate-y-full transition-transform duration-300 max-h-[90vh] overflow-y-auto">
@@ -222,7 +221,7 @@
         </div>
     </div>
 
-    <!-- ================= 5. ป็อปอัปยืนยันการลบ ================= -->
+    <!-- 5. ป็อปอัปยืนยันการลบ -->
     <div id="deleteModal" class="fixed inset-0 z-[60] hidden flex justify-center items-center px-4">
         <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="closeDeleteModal()"></div>
         <div class="bg-white/95 backdrop-blur-xl w-full max-w-sm rounded-[2rem] p-6 shadow-2xl relative z-10 border border-white text-center">
@@ -236,9 +235,8 @@
         </div>
     </div>
 
-    <!-- ================= 6. สคริปต์ ================= -->
+    <!-- สคริปต์กู้ชีพข้อมูล 100% -->
     <script>
-        // ฟังก์ชันอัปเดตตัวหนังสือแบบปลอดภัย (Safe Set) ป้องกันแอปพัง 100%
         function safeSetText(id, text) {
             const el = document.getElementById(id);
             if (el) el.innerText = text;
@@ -247,21 +245,32 @@
         let ledger = {};
         let oldPendingTotal = 0;
         
+        // กู้ชีพข้อมูลสมุดบันทึก
         try {
-            const storedLedger = localStorage.getItem('jamesPersonalLedger');
-            if(storedLedger) {
-                ledger = JSON.parse(storedLedger);
-                if (typeof ledger !== 'object' || Array.isArray(ledger) || ledger === null) {
-                    ledger = {};
+            const raw = localStorage.getItem('jamesPersonalLedger');
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (typeof parsed === 'object' && !Array.isArray(parsed) && parsed !== null) {
+                    for(let key in parsed) {
+                        if(typeof parsed[key] === 'object' && parsed[key] !== null) {
+                            ledger[key] = {
+                                garlands: parseInt(parsed[key].garlands) || 0,
+                                garlandReceived: parseInt(parsed[key].garlandReceived) || 0,
+                                cash: parseInt(parsed[key].cash) || 0,
+                                cashReceived: parseInt(parsed[key].cashReceived) || 0,
+                            };
+                        }
+                    }
                 }
             }
-        } catch (e) { ledger = {}; }
+        } catch(e) { console.warn("Rescue system active"); }
 
+        // กู้ชีพข้อมูลยอดค้างเก่า
         try {
-            const storedOldPending = localStorage.getItem('jamesOldPending');
-            oldPendingTotal = storedOldPending ? parseInt(storedOldPending) : 0;
+            const rawOld = localStorage.getItem('jamesOldPending');
+            oldPendingTotal = rawOld ? parseInt(rawOld) : 0;
             if (isNaN(oldPendingTotal)) oldPendingTotal = 0;
-        } catch (e) { oldPendingTotal = 0; }
+        } catch(e) { oldPendingTotal = 0; }
         
         let globalSelectedDate = new Date(); 
         let calendarViewDate = new Date(); 
@@ -271,28 +280,15 @@
         const shortMonths = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
         const fullMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
+        // เริ่มแอปอย่างปลอดภัย (ไม่มี Popup กวนใจ)
         window.onload = () => {
-            try {
-                updateDisplayDate();
-                loadDateData();
-                updateOldPendingUI(); 
-            } catch(e) {
-                alert("เกิดข้อผิดพลาด กรุณากดปุ่มล้างข้อมูลด้านล่างสุด");
-            }
+            updateDisplayDate();
+            loadDateData();
+            updateOldPendingUI(); 
         };
 
         function saveDataToDevice() {
             localStorage.setItem('jamesPersonalLedger', JSON.stringify(ledger));
-        }
-
-        // ปุ่มล้างข้อมูลฉุกเฉิน
-        function factoryReset() {
-            if(confirm("คำเตือน: นี่คือการล้างข้อมูล 'ทั้งหมด' เพื่อแก้ปัญหาแอปค้าง\n\nต้องการล้างข้อมูลใช่หรือไม่?")) {
-                localStorage.removeItem('jamesPersonalLedger');
-                localStorage.removeItem('jamesOldPending');
-                alert("ล้างข้อมูลเรียบร้อยแล้ว แอปจะโหลดใหม่");
-                location.reload();
-            }
         }
 
         function updateOldPendingUI() {
@@ -301,39 +297,29 @@
         }
 
         function addOldPending() {
-            try {
-                const inputEl = document.getElementById('setOldPendingInput');
-                if(!inputEl) return;
-                const amt = parseInt(inputEl.value) || 0;
-                if(amt > 0) {
-                    oldPendingTotal += amt;
-                    inputEl.value = '';
-                    updateOldPendingUI();
-                }
-            } catch(e) { console.error(e); }
+            const inputEl = document.getElementById('setOldPendingInput');
+            if(!inputEl) return;
+            const amt = parseInt(inputEl.value) || 0;
+            if(amt > 0) {
+                oldPendingTotal += amt;
+                inputEl.value = '';
+                updateOldPendingUI();
+            }
         }
 
         function deductOldPending() {
-            try {
-                const inputEl = document.getElementById('receiveOldPendingInput');
-                if(!inputEl) return;
-                const amt = parseInt(inputEl.value) || 0;
-                if(amt > 0) {
-                    oldPendingTotal = Math.max(0, oldPendingTotal - amt); 
-                    inputEl.value = '';
-                    updateOldPendingUI();
-                }
-            } catch(e) { console.error(e); }
+            const inputEl = document.getElementById('receiveOldPendingInput');
+            if(!inputEl) return;
+            const amt = parseInt(inputEl.value) || 0;
+            if(amt > 0) {
+                oldPendingTotal = Math.max(0, oldPendingTotal - amt); 
+                inputEl.value = '';
+                updateOldPendingUI();
+            }
         }
 
         function ensureValidDateData(dateStr) {
-            if (!ledger[dateStr] || typeof ledger[dateStr] !== 'object') {
-                ledger[dateStr] = { garlands: 0, garlandReceived: 0, cash: 0, cashReceived: 0 };
-            }
-            let g = parseInt(ledger[dateStr].garlands); ledger[dateStr].garlands = isNaN(g) ? 0 : g;
-            let gr = parseInt(ledger[dateStr].garlandReceived); ledger[dateStr].garlandReceived = isNaN(gr) ? 0 : gr;
-            let c = parseInt(ledger[dateStr].cash); ledger[dateStr].cash = isNaN(c) ? 0 : c;
-            let cr = parseInt(ledger[dateStr].cashReceived); ledger[dateStr].cashReceived = isNaN(cr) ? 0 : cr;
+            if (!ledger[dateStr]) ledger[dateStr] = { garlands: 0, garlandReceived: 0, cash: 0, cashReceived: 0 };
         }
 
         function loadDateData() {
@@ -359,13 +345,11 @@
         }
 
         function addGarland(amount) {
-            try {
-                const dateStr = getDateString(globalSelectedDate);
-                ensureValidDateData(dateStr);
-                ledger[dateStr].garlands = Math.max(0, ledger[dateStr].garlands + amount);
-                saveDataToDevice();
-                loadDateData(); 
-            } catch(e) { console.error(e); }
+            const dateStr = getDateString(globalSelectedDate);
+            ensureValidDateData(dateStr);
+            ledger[dateStr].garlands = Math.max(0, ledger[dateStr].garlands + amount);
+            saveDataToDevice();
+            loadDateData(); 
         }
 
         function addReceivedGarland() {
@@ -383,13 +367,11 @@
         }
 
         function addCash(amount) {
-            try {
-                const dateStr = getDateString(globalSelectedDate);
-                ensureValidDateData(dateStr);
-                ledger[dateStr].cash += amount;
-                saveDataToDevice();
-                loadDateData();
-            } catch(e) { console.error(e); }
+            const dateStr = getDateString(globalSelectedDate);
+            ensureValidDateData(dateStr);
+            ledger[dateStr].cash += amount;
+            saveDataToDevice();
+            loadDateData();
         }
 
         function addCustomCash() {
@@ -439,9 +421,7 @@
 
             bg.classList.add('opacity-0');
             sheet.classList.add('translate-y-full');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
 
         function changeMonth(step) { 
